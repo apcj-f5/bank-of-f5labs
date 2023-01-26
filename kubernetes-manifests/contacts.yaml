@@ -34,60 +34,61 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
       containers:
-      - name: contacts
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - all
-          privileged: false
-          readOnlyRootFilesystem: true
-        image: gcr.io/bank-of-anthos-ci/contacts:v0.5.10
-        volumeMounts:
-        - name: publickey
-          mountPath: "/tmp/.ssh"
-          readOnly: true
-        - mountPath: /tmp
-          name: tmp
-        env:
-        - name: VERSION
-          value: "v0.5.10"
-        - name: PORT
-          value: "8080"
-        - name: ENABLE_TRACING
-          value: "true"
-        # Valid levels are debug, info, warning, error, critical.
-        # If no valid level is set, will default to info.
-        - name: LOG_LEVEL
-          value: "info"
-        envFrom:
-        - configMapRef:
-            name: environment-config
-        - configMapRef:
-            name: accounts-db-config
-        resources:
-          requests:
-            cpu: 100m
-            memory: 64Mi
-          limits:
-            cpu: 250m
-            memory: 128Mi
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 8080
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          timeoutSeconds: 10
+        - name: contacts
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - all
+            privileged: false
+            readOnlyRootFilesystem: true
+          image: gcr.io/bank-of-anthos-ci/contacts:v0.5.10
+          volumeMounts:
+            - name: publickey
+              mountPath: "/tmp/.ssh"
+              readOnly: true
+            - mountPath: /tmp
+              name: tmp
+          env:
+            - name: VERSION
+              value: "v0.5.10"
+            - name: PORT
+              value: "8080"
+            - name: ENABLE_TRACING
+              value: "false"
+            # Valid levels are debug, info, warning, error, critical.
+            # If no valid level is set, will default to info.
+            - name: LOG_LEVEL
+              value: "info"
+          envFrom:
+            - configMapRef:
+                name: environment-config
+            - configMapRef:
+                name: accounts-db-config
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 10
       volumes:
-      - name: publickey
-        secret:
-          secretName: jwt-key
-          items:
-          - key: jwtRS256.key.pub
-            path: publickey
-      - emptyDir: {}
-        name: tmp
+        - name: publickey
+          secret:
+            secretName: jwt-key
+            items:
+              - key: jwtRS256.key.pub
+                path: publickey
+        - emptyDir: {}
+          name: tmp
+
 # [END gke_boa_kubernetes_manifests_contacts_deployment_contacts]
 ---
 # [START gke_boa_kubernetes_manifests_contacts_service_contacts]
@@ -100,7 +101,7 @@ spec:
   selector:
     app: contacts
   ports:
-  - name: http
-    port: 8080
-    targetPort: 8080
-# [END gke_boa_kubernetes_manifests_contacts_service_contacts]
+    - name: http
+      port: 8080
+      targetPort: 8080
+      # [END gke_boa_kubernetes_manifests_contacts_service_contacts]

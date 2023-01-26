@@ -20,6 +20,8 @@ metadata:
 data:
   LOCAL_ROUTING_NUM: "883745000"
   PUB_KEY_PATH: "/tmp/.ssh/publickey"
+  ENABLE_METRICS: "false"
+  ENABLE_TRACING: "false"
 
 # [END gke_boa_kubernetes_manifests_config_configmap_environment_config]
 ---
@@ -44,7 +46,7 @@ metadata:
   name: demo-data-config
 data:
   USE_DEMO_DATA: "True"
-  DEMO_LOGIN_USERNAME: "f5labs"
+  DEMO_LOGIN_USERNAME: "testuser"
   # All demo user accounts are hardcoded to use the login password 'bankofanthos'
-  DEMO_LOGIN_PASSWORD: "agile@f5!"
+  DEMO_LOGIN_PASSWORD: "bankofanthos"
   # [END gke_boa_kubernetes_manifests_config_configmap_demo_data_config]
