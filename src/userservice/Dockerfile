@@ -28,6 +28,11 @@ RUN adduser --system <user> --ingroup <group>
 USER <user>:<group>
 
 
+RUN addgroup --system <group>
+RUN adduser --system <user> --ingroup <group>
+USER <user>:<group>
+
+
 # Set our working directory
 WORKDIR /app
 
