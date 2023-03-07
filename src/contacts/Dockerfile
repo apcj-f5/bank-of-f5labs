@@ -23,6 +23,11 @@ RUN pip install --prefix="/install" -r requirements.txt
 
 FROM base
 
+RUN addgroup --system <group>
+RUN adduser --system <user> --ingroup <group>
+USER <user>:<group>
+
+
 # Set our working directory
 WORKDIR /app
 
