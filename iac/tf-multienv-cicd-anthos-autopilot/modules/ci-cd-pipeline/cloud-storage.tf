@@ -21,6 +21,9 @@ resource "google_storage_bucket" "build_cache" {
 
 # GCS bucket used by Cloud Build to stage sources for Cloud Deploy
 resource "google_storage_bucket" "release_source_staging" {
+  versioning {
+		enabled = true
+	}
   name                        = "release-source-staging-${var.team}-${var.project_id}"
   uniform_bucket_level_access = true
   location                    = var.region
