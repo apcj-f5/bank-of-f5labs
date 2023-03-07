@@ -13,6 +13,11 @@
 # limitations under the License.
 FROM postgres:15.1-alpine@sha256:69bd7cc493f84c970cf0af442dbf1ed15315b63c3a1cd2f8556dc9e98004a11f
 
+RUN addgroup --system <group>
+RUN adduser --system <user> --ingroup <group>
+USER <user>:<group>
+
+
 # Need to get coreutils to get the date bash function working properly:
 RUN apk add --update coreutils && rm -rf /var/cache/apk/*
 
