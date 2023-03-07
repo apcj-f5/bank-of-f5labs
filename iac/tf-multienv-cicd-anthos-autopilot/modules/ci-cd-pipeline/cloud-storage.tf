@@ -28,6 +28,9 @@ resource "google_storage_bucket" "release_source_staging" {
 
 # GCS bucket used by Cloud Deploy for delivery artifact storage
 resource "google_storage_bucket" "delivery_artifacts" {
+  versioning {
+		enabled = true
+	}
   name                        = "delivery-artifacts-${var.team}-${var.project_id}"
   uniform_bucket_level_access = true
   location                    = var.region
