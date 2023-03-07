@@ -13,6 +13,11 @@
 # limitations under the License.
 FROM postgres:15.1-alpine@sha256:69bd7cc493f84c970cf0af442dbf1ed15315b63c3a1cd2f8556dc9e98004a11f
 
+RUN addgroup --system <group>
+RUN adduser --system <user> --ingroup <group>
+USER <user>:<group>
+
+
 # Files for initializing the database.
 COPY initdb/0-accounts-schema.sql /docker-entrypoint-initdb.d/0-accounts-schema.sql
 RUN chmod 755  /docker-entrypoint-initdb.d/0-accounts-schema.sql
