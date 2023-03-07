@@ -14,6 +14,9 @@
 
 # GCS bucket used as skaffold build cache
 resource "google_storage_bucket" "build_cache" {
+  versioning {
+		enabled = true
+	}
   name                        = "build-cache-${var.team}-${var.project_id}"
   uniform_bucket_level_access = true
   location                    = var.region
